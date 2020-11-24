@@ -1,0 +1,807 @@
+/* ---------------------- mini reset ----------------------- */
+body{
+    margin: 0;
+    background: #fafafa;
+}
+body,h1,h2,p,a,input{
+    font-family: 'Arvo', sans-serif;
+    text-decoration: none;
+}
+.main.hide{
+    display: none;
+}
+.main{
+    animation: modalfadein 1s;
+}
+
+/* -------------------- landing page ------------------------ */
+.showcase{
+    background-image: url("../images/bg.png");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 0 20px;
+    overflow: hidden;
+    animation: modalfadein 1s;
+}
+
+.showcase h1{
+    font-size: 50px;
+    line-height: 1.2;
+    color: white;
+}
+.showcase a{
+    font-size: 20px;
+    color: white;
+}
+.showcase button{
+    font-size: 18px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: transparent;
+}
+.showcase button:hover{
+    background: #039be5;
+    color: #ECEFF1;
+}
+.showcase.hide{
+    display: none;
+}
+.intro-message{
+    width: 50%;
+}
+.intro-message h1, .intro-message a {
+    color: #f3b606;
+}
+.intro-message, .auth{
+    float: left;
+}
+/* ----------------------- nav styles ---------------------- */
+nav{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    background: #2098D1;
+    box-shadow: 0 0 6px;
+}
+
+.logo{
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 20px;
+    color: #fafafa;
+    cursor: pointer;
+}
+.nav-links {
+    display:flex;
+    justify-content: space-around;
+    width: 35%;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+.nav-links li{
+    list-style: none;
+}
+.burger{
+    display: none;
+}
+.burger div{
+    width: 25px;
+    height: 3px;
+    background-color: #fafafa;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+@media screen and (max-width:1024px){
+    .nav-links{
+        width: 60%;
+    }
+}
+@media screen and (max-width:768px){
+    .logo {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 18px;
+    }
+    html, body{
+        overflow-x: hidden;
+    }
+    .nav-links{
+        position: absolute;
+        right: 0;
+        height: 92vh;
+        top: 6.1vh;
+        display: flex;
+        border-top: 1px #fafafa;
+        flex-direction: column;
+        align-items: center;
+        width: 25%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+        background-color: #2098D1;
+        box-shadow: 0 6px 6px;
+        padding-right: 35px;
+    }
+    .nav-links li{
+        opacity: 0;
+    }
+    .burger{
+        display: block;
+        cursor: pointer;
+    }
+}
+.nav-active{
+    transform: translateX(0%);
+}
+@keyframes navLinkFade {
+    from{
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+.toggle .line1{
+    transform: rotate(-45deg) translate(-5px,6px);
+}
+.toggle .line2{
+     opacity: 0;
+}
+.toggle .line3{
+    transform: rotate(45deg) translate(-5px,-6px);
+}
+
+/* ------------------- link styles ---------------------- */
+.link{
+    color: #fafafa;
+    margin-left: 10px;
+    border-bottom: 1px solid #fafafa;
+    padding: 4px;
+    cursor: pointer;
+}
+.link:hover{
+    background: #00BFFF;
+    color: black;
+}
+
+/* ---------------------------- content styles --------------------- */
+.content{
+    margin: 40px 20px 40px 20px;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+.class-container, .messages, .friends-container{
+    float: left;
+}
+.class-container, .friends-container{
+    margin: 20px;
+    background-color: #F0F0F0;
+    border-radius: 12px;
+    width: 400px;
+}
+.class-container{
+    overflow: hidden;
+}
+.class-list{
+    overflow: hidden;
+    display: flex;
+    padding-top: 0;
+    margin-right: 20px;
+    margin-left: 20px;
+    text-align: center;
+}
+.friends-container{
+    overflow: hidden;
+}
+.website-info{
+    position :  fixed;
+    bottom : 20px;
+    left: 20px;
+}
+#info-button{
+    font-size: 36px;
+}
+#info-button:hover{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+    .messages {
+        position: absolute;
+        width: 60vw;
+        z-index: -1;
+    }
+    .class-container {
+        position: absolute;
+        display: none;
+    }
+    .friends-container {
+        position: absolute;
+        display: none;
+    }
+}
+
+/* -------------------------- collapsible ---------------------- */
+.collapsible {
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.class-info, .friend-info{
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+.collapsible:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: white;
+    float: right;
+    margin-left: 5px;
+}
+.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+#friends-list li{
+    list-style: none;
+    justify-content: center;
+}
+
+/* ----------------------------- displaying classes ---------------------- */
+.classes li{
+    list-style: none;
+}
+ .class-container h2{
+    text-align: center;
+ }
+
+.classes{
+    width: 400px;
+    margin: 0;
+    padding-top: 0;
+    height: 71vh;
+    overflow-y: auto;
+    padding-left:0;
+}
+.add-groupchat{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0,0,0,0.4);
+    z-index: 1;
+    display: none;
+}
+.classes #delete-class{
+    background: #ed643e;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    border: none;
+}
+.classes #show-members{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.display-member{ /* member container */
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    border-top: 1px solid #a4a7ab;
+    padding-top: 10px;
+}
+.member-name{ /* section 1 */
+    flex: 2;
+}
+.friend-button{ /* section 2 */
+    margin-left: 50px;
+}
+.friend-button button{
+    margin-top: 0;
+}
+.sent-request{
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.hide{
+    display: none;
+}
+#members-list{
+    overflow-y: auto;
+    height: 54vh;
+}
+
+/* ------------------------------- Slack config ---------------------------------- */
+.join-slack{
+    align-self: center;
+    border: #3F0F3F 1px solid;
+}
+.join-slack:hover{
+    color: white;
+    background: #3F0F3F;
+}
+#slack-server-link{
+    margin-left: 10px;
+    border-bottom: 2px solid #3F0F3F;
+    padding: 4px;
+    cursor: pointer;
+    color: black;
+}
+
+#slack-server-link:hover{
+    background: #ddd3ee;
+    color: black;
+}
+.add-groupchat .modal{
+    width: 600px;
+}
+
+/* ----------------------------- opening and fading in modals ---------------------------- */
+.add-groupchat.open, .view-profile.open, .view-members.open, .new-class.open, .get-suggestion.open{
+    display: block;
+    animation: modalfadein 0.3s;
+}
+@-webkit-keyframes modalfadein {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@keyframes modalfadein {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* ------------------------------------ default/closing modals --------------------------- */
+.view-profile, .view-members, .get-suggestion{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0,0,0,0.4);
+    z-index: 1;
+    display: none;
+    overflow: auto;
+}
+#survey-link{
+    color: black;
+    border-bottom: 1px solid #039be5;
+}
+
+/* ---------------------------- modal styles --------------------------- */
+.modal{
+    width: 300px;
+    padding: 30px;
+    margin: 100px auto;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.new-class{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0,0,0,0.4);
+    z-index: 1;
+    display: none;
+}
+
+/* -------------------------- profile ------------------------- */
+.view-profile img{
+    padding-top: 10px;
+    max-height: 280px;
+    max-width: 280px;
+}
+.profile-loader{
+    display: none;
+}
+.profile-loader.open, .current-friends-container.open, .edit-prof.open, .friend-requests-container.open{
+    display: block;
+}
+
+/* ------------------------------ form element styles ------------------------ */
+input{
+    display: block;
+    margin: 8px 0;
+    padding: 8px 2px;
+    border-width: 0 0 2px 0;
+    width: 100%;
+}
+button{
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: #00bfff 1px solid;
+    font-weight: bold;
+    font-family: inherit;
+    cursor: pointer;
+    background: transparent;
+}
+
+button:hover{
+    color: white;
+    background: #039be5;
+}
+
+/* --------------------------- auth styles ------------------------ */
+.auth a{
+    text-decoration: underline;
+    cursor: pointer;
+    color: black;
+    font-size: 16px;
+}
+.auth .modal{
+    display: none;
+}
+.auth .modal.active{
+    display: block;
+    margin: 10px;
+}
+.forgot-password{
+    display: none;
+}
+.forgot-password.open{
+    display: block;
+}
+
+/* ---------------------------- edit profile styles ----------------------- */
+.edit-prof{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #fafafa;
+    display: none;
+    z-index: 1;
+    text-align: center;
+}
+#edit{
+    width: 600px;
+}
+.cancel{
+    padding-top: 25px;
+}
+
+/* -------------------- profile picture upload ----------------------- */
+.picture-upload{
+    padding-top: 25px;
+}
+#uploader{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25%;
+    margin-bottom: 10px;
+}
+
+#fileButton{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.picture-upload label{
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #00bfff;
+    border: 0;
+    font-weight: bold;
+    font-family: inherit;
+    cursor: pointer;
+}
+/* ---------------------------------- loader ------------------------------------- */
+.spinner {
+    width: 40px;
+    height: 40px;
+    background-color: #333;
+    display: block;
+    margin: 100px auto;
+    -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+    animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+.spinner.false{
+    display: none;
+}
+
+@-webkit-keyframes sk-rotateplane {
+    0% { -webkit-transform: perspective(120px) }
+    50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+    100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes sk-rotateplane {
+    0% {
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+    } 50% {
+          transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+          -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+      } 100% {
+            transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+            -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        }
+}
+
+/* -------------------------------- friends -------------------------------------- */
+#remove-friend, #delete-profile{
+    background: #ed643e;
+    border: none;
+    color: black;
+    padding: 8px 12px;
+}
+.friend-info{
+    background-color: #f8f8ff;
+    border-radius: 12px;
+}
+.friend-info #remove-friend{
+    margin-bottom: 20px;
+}
+.friend-info img{
+    padding-top: 10px;
+    max-height: 140px;
+    max-width: 140px;
+}
+.not-found{ /* used for class members as well */
+    font-style: italic;
+    text-align: center;
+    border-bottom: 2px solid #006484;
+}
+.friends-container h2{
+    text-align: center;
+}
+.friend-toggle{
+    display: flex;
+    border-radius: 12px;
+    justify-content: center;
+}
+.friend-toggle button{
+    margin: 10px;
+}
+.friend-toggle .highlight{
+    background-color: #039be5;
+    color: white;
+}
+.friend-request{
+    margin-top: 10px;
+    border-top: 1px solid #a4a7ab;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.friend-request a{
+    margin-top: 15px;
+    text-decoration: underline;
+}
+.current-friends-container, .friend-requests-container{
+    display: none;
+    margin: 10px 40px 0 40px;
+    list-style: none;
+    overflow-y: auto;
+    height: 64vh;
+    text-align: center;
+}
+
+/* -------------------------------- snackbar ------------------------------------- */
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar-container{
+    position :  fixed;
+    bottom : 0;
+    left : 50%;
+}
+.snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    margin-bottom : 20px;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+.snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+/* --------Messaging -------- */
+.messages{ /* container for messaging */
+    width: 500px;
+    border: 2px solid #a4a7ab;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 0 0 5px 0;
+    background: #F6F6F6;
+    background-size: 50px 50px;
+    margin: 20px;
+}
+.messages h2{
+    text-align: center;
+}
+.received-messages{ /* parent container for message elements */
+    overflow-y: auto;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    padding-left: 10px;
+}
+.message-container{
+    display: block;
+    margin-top: 10px;
+    border-top: 1px solid #a4a7ab;
+    padding-top: 10px;
+}
+.message-container.visible{
+    opacity:1;
+}
+.message-container .pic {
+    background-image: url("../images/defaultProfPic140.jpg");
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    background-size: 30px;
+    border-radius: 20px;
+}
+.message-container .spacing {
+    display: table-cell;
+}
+.message-container .message{
+    display: table-cell;
+    width: calc(100% - 48px);
+    padding-left: 10px;
+}
+.message-container .name{
+    display: inline-block;
+    width: 100%;
+    padding-left: 40px;
+    color: #bbb;
+    font-style: italic;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+#inputText img{
+    max-width: 300px;
+    max-height: 200px;
+}
+.message img {
+    max-width: 300px;
+    max-height: 200px;
+}
+#message-form{
+    display: flex;
+    width: calc(100% - 80px);
+    float: left;
+    padding-left: 10px;
+}
+#message-form button, #image-form button {
+    margin: 0 0 0 10px;
+    height: 45px;
+    border-radius: 12px;
+}
+#image-form{
+    display: flex;
+    width: 48px;
+}
+#submitImage .material-icons{
+    top: -1px;
+}
+#mediaCapture {
+    display: none;
+}
+.chat-links{
+    justify-content: space-around;
+    list-style-type: none;
+    display: flex;
+    box-shadow: 0 0 10px;
+    margin-bottom: 0;
+    border-radius: 5px;
+}
+.highlight{
+    font-weight: bold;
+    background: #ffd200;
+    background-size: 50% auto;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1);
+}
+.chat-links .cl{
+    margin-left: 10px;
+    cursor: pointer;
+    padding: 10px 0 10px;
+    text-align: center;
+}
+.chat-links .cl:after{
+    content: '';
+    display: block;
+    height: 3px;
+    width: 0;
+    background: transparent;
+    transition: width .5s ease, background-color .5s ease;
+}
+.chat-links .cl:hover:after{
+    width: 100%;
+    background: #006484
+}
+
+/* Shutter Out Horizontal */
+#hvr-shutter-out-horizontal {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    background: #ffd200;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+#hvr-shutter-out-horizontal:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #2098D1;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: 50%;
+    transform-origin: 50%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+#hvr-shutter-out-horizontal:hover, #hvr-shutter-out-horizontal:focus, #hvr-shutter-out-horizontal:active {
+    color: white;
+}
+#hvr-shutter-out-horizontal:hover:before, #hvr-shutter-out-horizontal:focus:before, #hvr-shutter-out-horizontal:active:before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
